@@ -1,0 +1,19 @@
+module tb_digital_clock;
+    reg clk, reset;
+    wire [5:0] seconds, minutes;
+    wire [4:0] hours;
+
+    digital_clock uut (.clk(clk), .reset(reset), .seconds(seconds), .minutes(minutes), .hours(hours));
+
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // 10 time units clock period (simulates 1 Hz)
+    end
+
+    initial begin
+        reset = 1; #10;
+        reset = 0;
+
+        #2000 $finish; // run simulation for 2000 time units
+    end
+endmodule
